@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import Cell from "./cell";
 
 class Board extends Component {
 
     renderCell(i){
-        return <button className="square">{i} </button>
+        return <Cell value={i} onClick={() => console.log(44)} />
     }
 
     render() {
