@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Board from "./board";
 import register from "./registerServiceWorker";
-
+import colculateWinner from './helpers/calculateWinner';
 
 
 class Game extends Component {
@@ -22,6 +22,10 @@ class Game extends Component {
         const current = history[history.length-1];
         const squares = current.squares.slice();
 
+         if (colculateWinner(squares) || squares[i]){
+             return;
+         }
+
         squares[i] = xIsNext ? 'X' : 'O';
 
         this.setState({
@@ -33,11 +37,17 @@ class Game extends Component {
     render() {
         const {xIsNext, stepNumber, history } = this.state;
         const current = history[stepNumber] ;
-        const status = 'Next player is' + (xIsNext ? 'X' : '0 ');
+        const winner = colculateWinner(current.squares);
+        let status;
+        if(winner){
+            status = 'Winner is: '+ winner;
+        }else {
+            status = 'Next player is' + (xIsNext ? 'X' : '0 ');
+
+        }
 
         return (
             <div className='game'>
-                <h1> Hello G vvame!!!</h1>
                 <div className='game-board'>
                     <Board
                         squares={current.squares}
@@ -45,7 +55,7 @@ class Game extends Component {
                     />
                 </div>
                 <div className='game-info'>
-                    <div className="">{'status'}</div>
+                    <div className="">{'status ' + status}</div>
                     <ul>{/*history*/}</ul>
                 </div>
             </div>
