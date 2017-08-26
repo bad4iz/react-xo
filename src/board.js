@@ -4,7 +4,7 @@ import Cell from "./cell";
 class Board extends Component {
 
     renderCell(i){
-        return <Cell value={i} />
+        return <Cell value={i} onClick={() => console.log(44)} />
     }
 
     render() {
