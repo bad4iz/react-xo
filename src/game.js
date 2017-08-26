@@ -18,7 +18,17 @@ class Game extends Component {
         };
     }
     handleClick(i) {
-        console.log(i);
+        const {xIsNext, history} = this.state;
+        const current = history[history.length-1];
+        const squares = current.squares.slice();
+
+        squares[i] = xIsNext ? 'X' : 'O';
+
+        this.setState({
+            xIsNext: !xIsNext,
+            history:history.concat([{squares}]),
+            stepNumber: ++this.state.stepNumber
+        });
     }
     render() {
         const {xIsNext, stepNumber, history } = this.state;
