@@ -34,6 +34,27 @@ class Game extends Component {
             stepNumber: ++this.state.stepNumber
         });
     }
+
+    paintMoves() {
+        return (
+            this.state.history.map((step, move)=>{
+                const desc = move ? ('Move #' + move) : 'Game Start';
+                return (
+                    <li key={move}>
+                        <a href="#" onClick={()=> this.jumpTo(move)}>{desc}</a>
+                    </li>
+                )
+            })
+        )
+    }
+
+    jumpTo (step) {
+        this.setState({
+            stepNumber: step,
+            xIsNext: (step % 2) ? false : true
+        })
+    }
+
     render() {
         const {xIsNext, stepNumber, history } = this.state;
         const current = history[stepNumber] ;
@@ -56,7 +77,7 @@ class Game extends Component {
                 </div>
                 <div className='game-info'>
                     <div className="">{'status ' + status}</div>
-                    <ul>{/*history*/}</ul>
+                    <ul>{this.paintMoves()}</ul>
                 </div>
             </div>
         );
